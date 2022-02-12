@@ -9,14 +9,14 @@ module Rb1drv
   class OneDrive
     attr_reader :oauth2_client, :logger, :access_token, :conn
     # Instanciates with app id and secret.
-    def initialize(client_id, client_secret, callback_url, logger=nil)
+    def initialize(client_id, client_secret, callback_url, tenant_id='common', logger=nil)
       @client_id = client_id
       @client_secret = client_secret
       @callback_url = callback_url
       @logger =  logger
       @oauth2_client = OAuth2::Client.new client_id, client_secret,
-        authorize_url: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
-        token_url: 'https://login.microsoftonline.com/common/oauth2/v2.0/token'
+        authorize_url: "https://login.microsoftonline.com/#{tenant_id}/oauth2/v2.0/authorize",
+        token_url: "https://login.microsoftonline.com/#{tenant_id}/oauth2/v2.0/token"
       @conn = Excon.new('https://graph.microsoft.com/', persistent: true, idempotent: true)
       @conn.logger = @logger if @logger
     end
