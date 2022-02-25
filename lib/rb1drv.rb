@@ -46,6 +46,7 @@ module Rb1drv
       else
         response = @conn.get(query)
       end
+      puts response.inspect
       JSON.parse(response.body)
     end
 
