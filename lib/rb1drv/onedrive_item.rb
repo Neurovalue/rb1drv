@@ -11,6 +11,7 @@ module Rb1drv
       %w(id name eTag size).each do |key|
         instance_variable_set("@#{key}", api_hash[key])
       end
+      @drive_id = api_hash.dig('parentReference', 'driveId')
       @remote_drive_id = api_hash.dig('remoteItem', 'parentReference', 'driveId')
       @remote_id = api_hash.dig('remoteItem', 'id')
       @mtime = Time.iso8601(api_hash.dig('lastModifiedDateTime'))
@@ -43,6 +44,12 @@ module Rb1drv
       else
         item_hash
       end
+    end
+
+    def copy(destination)
+      destination_folder = get(destination)
+      result = @od.request("#{api_path}/copy", parentReference : { driveId: @drive_id, id: destination_folder.id }, name: @name)
+      puts result.inspect
     end
 
     # @return [String] absolute path of current item
