@@ -48,7 +48,7 @@ module Rb1drv
 
     def copy(destination)
       destination_folder = get(destination)
-      result = @od.request("#{api_path}/copy", parentReference : { driveId: @drive_id, id: destination_folder.id }, name: @name)
+      result = @od.request("#{api_path}/copy", { parentReference: { driveId: @drive_id, id: destination_folder.id }, name: @name }, :post)
       puts result.inspect
     end
 
