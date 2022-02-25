@@ -3,7 +3,7 @@ module Rb1drv
     attr_reader :id, :name, :eTag, :size, :mtime, :ctime, :muser, :cuser, :parent_path, :remote_id, :remote_drive_id
 
     def copy(destination)
-      destination_folder = get(destination)
+      destination_folder = @od.get(destination)
       result = @od.request("#{api_path}/copy", { parentReference: { driveId: @drive_id, id: destination_folder.id }, name: @name }, :post)
       puts result.inspect
     end
