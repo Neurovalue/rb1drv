@@ -1,6 +1,13 @@
 module Rb1drv
   class OneDriveItem
     attr_reader :id, :name, :eTag, :size, :mtime, :ctime, :muser, :cuser, :parent_path, :remote_id, :remote_drive_id
+
+    def copy(destination)
+      destination_folder = get(destination)
+      result = @od.request("#{api_path}/copy", { parentReference: { driveId: @drive_id, id: destination_folder.id }, name: @name }, :post)
+      puts result.inspect
+    end
+
     protected
     def initialize(od, api_hash)
       # always raise Errors::ApiError here because if request failed
@@ -44,12 +51,6 @@ module Rb1drv
       else
         item_hash
       end
-    end
-
-    def copy(destination)
-      destination_folder = get(destination)
-      result = @od.request("#{api_path}/copy", { parentReference: { driveId: @drive_id, id: destination_folder.id }, name: @name }, :post)
-      puts result.inspect
     end
 
     # @return [String] absolute path of current item
