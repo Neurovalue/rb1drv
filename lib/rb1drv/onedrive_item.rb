@@ -2,9 +2,9 @@ module Rb1drv
   class OneDriveItem
     attr_reader :id, :name, :eTag, :size, :mtime, :ctime, :muser, :cuser, :parent_path, :remote_id, :remote_drive_id
 
-    def copy(destination_path, filename = @name)
+    def copy(destination_path)
       destination_folder = @od.get(destination_path)
-      result = @od.request("#{api_path}/copy", { parentReference: { driveId: @drive_id, id: destination_folder.id }, name: filename }, :post)
+      result = @od.request("#{api_path}/copy", { parentReference: { driveId: @drive_id, id: destination_folder.id }, name: @name }, :post)
     end
 
     protected
