@@ -11,7 +11,6 @@ module Rb1drv
 
     def delete
       result = @od.request(api_path, {}, :delete)
-      puts result.inspect
     rescue JSON::ParserError => e
       @od.logger.error e.message if @od.logger
     end
