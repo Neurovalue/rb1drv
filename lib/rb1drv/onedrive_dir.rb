@@ -136,7 +136,7 @@ module Rb1drv
           end
 
           until resume_session && resume_session['session_url'] do
-            result = @od.request("#{api_path}:/#{target_name}:/createUploadSession", item: {'@microsoft.graph.conflictBehavior': overwrite ? 'replace' : 'rename', '@odata.type': 'microsoft.graph.driveItemUploadableProperties'})
+            result = @od.request("#{api_path}:/#{target_name}:/createUploadSession", item: {'@microsoft.graph.conflictBehavior': overwrite ? 'replace' : 'rename', fileSystemInfo: { "@odata.type": "microsoft.graph.fileSystemInfo" }})
             if result['uploadUrl']
               resume_session = {
                 'session_url' => result['uploadUrl'],
