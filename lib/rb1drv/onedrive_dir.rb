@@ -146,8 +146,6 @@ module Rb1drv
               File.write(resume_file, JSON.pretty_generate(resume_session))
               conn = Excon.new(resume_session['session_url'], idempotent: true)
               break
-            else
-              puts "RESULT: #{result.inspect}"
             end
             sleep 15
           end

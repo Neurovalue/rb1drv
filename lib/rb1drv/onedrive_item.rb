@@ -9,6 +9,12 @@ module Rb1drv
       @od.logger.error e.message if @od.logger
     end
 
+    def delete
+      @od.request(api_path, nil, :delete)
+    rescue JSON::ParserError => e
+      @od.logger.error e.message if @od.logger
+    end
+
     protected
     def initialize(od, api_hash)
       # always raise Errors::ApiError here because if request failed
