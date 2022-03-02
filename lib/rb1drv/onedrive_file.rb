@@ -33,7 +33,7 @@ module Rb1drv
 
       return if !overwrite && File.exist?(target_name)
 
-      if resume && File.size(tmpfile) > 0
+      if resume && File.exist?(tmpfile) && File.size(tmpfile) > 0
         from = File.size(tmpfile)
         len = @size - from
         fmode = 'ab'
