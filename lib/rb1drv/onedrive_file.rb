@@ -55,7 +55,7 @@ module Rb1drv
         end
       end
       yield :finish_segment, file: target_name if block_given?
-      FileUtils.mv(tmpfile, filename)
+      FileUtils.mv(tmpfile, target_name)
     end
 
     # Change last modified time for a remote file.
